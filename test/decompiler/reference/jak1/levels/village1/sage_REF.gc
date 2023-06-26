@@ -521,7 +521,7 @@
       (((task-status need-resolution))
        (remove-setting! 'music-volume-movie)
        (close-specific-task! (game-task intro) (task-status need-resolution))
-       (start 'play (get-continue-by-name *game-info* "game-start"))
+       (start 'play (get-continue-by-name *game-info* "finalboss-fight"))
        )
       )
     (none)

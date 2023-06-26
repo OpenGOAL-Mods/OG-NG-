@@ -1450,7 +1450,7 @@
 
 (defbehavior ogreboss-post ogreboss ()
   (transform-post)
-  (send-event *camera* 'point-of-interest (-> self node-list data 5 bone transform vector 3))
+  ;;(send-event *camera* 'point-of-interest (-> self node-list data 5 bone transform vector 3))
   0
   (none)
   )
@@ -1479,7 +1479,7 @@
     )
   :code (behavior ()
     (set! (-> self mask) (logior (process-mask enemy) (-> self mask)))
-    (ogreboss-set-stage1-camera)
+    ;;(ogreboss-set-stage1-camera)
     (ogreboss-move-near (seconds 3) (the-as float 1.0))
     (cond
       ((ja-group? ogreboss-victory-ja)
@@ -1687,7 +1687,7 @@
     (none)
     )
   :code (behavior ()
-    (ogreboss-set-stage2-camera)
+    ;;(ogreboss-set-stage2-camera)
     (ogreboss-move-far (seconds 0.1) (the-as float 2.0))
     (let ((f30-0 (* 0.75 (-> self difficulty))))
       (let ((gp-0 #f))
@@ -1750,7 +1750,7 @@
     (none)
     )
   :exit (behavior ()
-    (send-event *camera* 'point-of-interest #f)
+    ;;(send-event *camera* 'point-of-interest #f)
     (set! (-> self vulnerable) #f)
     (none)
     )

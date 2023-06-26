@@ -37,12 +37,31 @@ if the result of rand-vu-int-range is 1, then DANCE! if it is not 1, then Don't 
 ;; Define Custom Variables to use in mods
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(define open-cit-door? #t)
+(define skip-klaww-boosted? #f)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Define Custom Functions to call in mods
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; add your own unique custom functions here!
+
+(defun unlock-citadel-door-no-cells ()
+  ;; Unlock citadel door if the randomizer is on. Invis wall is removed elsewhere (racer.gc). Softlocks bad.
+  (if (entity-by-name "citb-iris-door-21")
+    ;; we break the link between the citadel door's state and the warp gate switch, 
+    ;; and then manually open the door
+    (let ((citb-iris-door-21 (the eco-door (-> (entity-by-name "citb-iris-door-21") extra process))))
+      (set! (-> citb-iris-door-21 state-actor) #f)
+      (set! (-> citb-iris-door-21 locked) #f) 
+    )
+  ))
+
+(defun klaww-lavawalk ()
+
+
+)
+
 
 ;; Macros can be used more-or-less just like functions
 (defmacro current-cell-count ()

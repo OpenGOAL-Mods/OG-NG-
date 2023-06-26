@@ -398,7 +398,7 @@
     (none)
     )
   )
-
+(define-extern open-cit-door? symbol)
 (defmethod init-from-entity! racer ((obj racer) (arg0 entity-actor))
   (let ((s4-0 (new 'process 'collide-shape-moving obj (collide-list-enum hit-by-player))))
     (set! (-> s4-0 dynam) (copy *standard-dynamics* 'process))
@@ -446,17 +446,22 @@
   (set! (-> obj cell) (the-as handle #f))
   (if (not *allow-zoomer-anywhere*)
     (blocking-plane-spawn
-      (the-as
-        curve-control
+    (the-as
+      curve-control
+      (if open-cit-door?
+        ;; in randomizer, don't spawn the invisible wall between lavatube/citadel
+        (-> obj path-target)
+        ;; original logic
         (if (or (and *target* (logtest? (-> *target* control root-prim prim-core action) (collide-action ca-9)))
                 (= (-> obj condition) 3)
                 )
             (-> obj path-racer)
             (-> obj path-target)
             )
-        )
       )
     )
+  )
+  )
   (set! (-> obj sound)
         (new 'process 'ambient-sound (static-sound-spec "zoom-teleport" :fo-max 30) (-> obj root-override trans))
         )

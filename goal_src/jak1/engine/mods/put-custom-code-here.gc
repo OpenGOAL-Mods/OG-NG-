@@ -24,8 +24,19 @@
     (defun runs-every-frame ()
       ;;(increase-power-cell-by-one) This is a call to increase-power-cell-by-one defined in define-custom-functions-here.gc
 
+    (if open-cit-door?
+    (unlock-citadel-door-no-cells)
+    )
+    (if (and (= (-> (level-get-target-inside *level*)name) 'ogre)  
+             (= (-> (-> (-> (the-as (pointer camera-slave) (-> *camera* child))) state) name) 'cam-circular)
+        )
+    (send-event *camera* 'change-state cam-string 0)
+
+
       (none)
       )
+)
+    
 
     (defun runs-on-orb-pickup ((parent process-tree))
       (let* ((from-cache? (and parent (type-type? (-> parent type) orb-cache-top))))
